@@ -36,6 +36,7 @@ class SnakeGame:
         self.head.color("green")
         self.head.speed(0)
         self.head.penup()
+        self.direction = Direction.DOWN
 
         # Snake body parts, start with empty.
         self.body_parts = []
@@ -77,7 +78,10 @@ class SnakeGame:
         '''return true if the snake eats an apple
            otherwise, return false
         '''
-        raise NotImplementedError
+        if self.applex + 15 > self.headx and self.applex - 15 < self.headx and self.appley + 15 > self.heady and self.appley - 15 < self.heady:
+            return True
+        else:
+            return False
 
     def play_step(self,action):
         '''
@@ -101,12 +105,12 @@ class SnakeGame:
             self.update_score(self.score,self.high_score)
 
             # move the apple to a random position on the screen
-            x = random.randint(-280, 280)
-            y = random.randint(-280, 280)
+            x = random.randint(-280/20, 280/20)*20
+            y = random.randint(-280/20, 280/20)*20
             # don't place the apple on the snake body
             while self.iscollision((x,y)):
-                x = random.randint(-280, 280)
-                y = random.randint(-280, 280)
+                x = random.randint(-280/20, 280/20)*20
+                y = random.randint(-280/20, 280/20)*20
             self.apple.goto(x, y)
 
             # grow the snake by adding one body part
@@ -119,12 +123,12 @@ class SnakeGame:
             self.body_parts.append(new_part)
 
         # move body part to follow the previous one
-        '''
-        for index in range(len(self.body_parts)-1, 0, -1):
-            x = self.body_parts[index-1].xcor()
-            y = self.body_parts[index-1].ycor()
-            self.body_parts[index].goto(x, y)
-        '''
+            
+            for index in range(len(self.body_parts)-1, 0, -1):
+                x = self.body_parts[index-1].xcor()
+                y = self.body_parts[index-1].ycor()
+                self.body_parts[index].goto(x, y)
+            
         # Move the last part to where the head is
         if len(self.body_parts) > 0:
             x = self.head.xcor()
@@ -148,14 +152,15 @@ class SnakeGame:
         # decide the moving direction
         new_dir = None
         if np.array_equal(action, [1, 0, 0]):
-            # Add your code here
-            pass
+            new_dir = self.direction
         elif np.array_equal(action, [0, 1, 0]):
-            # Add your code here
-            pass
+            if idx == 3:
+                idx = -1
+            new_dir = clock_wise[idx+1]
         else: # [0, 0, 1]
-            # Add your code here
-            pass
+            if idx == 0:
+                idx = 4
+            new_dir = clock_wise[idx-1]
 
         self.direction = new_dir
 
@@ -188,13 +193,13 @@ class SnakeGame:
             x = pt[0]
             y = pt[1]
         
-        # return true if the point pt collide with a border
-        # your code here
+        if self.headx > 280 or self.headx < -280 or self.heady > 280 or self.headx < -280:
+            return True
         
-        # return true if the point pt collide with the body
-        # your code here
+        for body in self.body_parts:
+            if body.xcor() == self.head.xcor() and body.ycor() == self.head.ycor():
+                return True
 
-        # if reaching to this point, return false as there is no collision.
         return False
 
     def reset(self):

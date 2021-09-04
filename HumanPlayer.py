@@ -19,7 +19,7 @@ def go_up():
     elif game.direction == Direction.LEFT:
         action = [0,1,0]  # turn right
     else: # must be down
-        game.game_over = True
+        action = [1, 0, 0]
     
     game.direction = Direction.UP
     return action
@@ -27,19 +27,13 @@ def go_up():
 def go_down():
     global action
     if game.direction == Direction.DOWN:
-        # Add your code here
-        # action = ????
-        pass
+        action = [1, 0, 0]
     elif game.direction == Direction.RIGHT:
-        # Add your code here
-        # action = ????
-        pass
+        action = [0, 1, 0]
     elif game.direction == Direction.LEFT:
-        # Add your code here
-        # action = ????
-        pass
+        action = [0, 0, 1]
     else: # must be up
-        game.game_over = True
+        action = [1, 0, 0]
 
     game.direction = Direction.DOWN
     return action
@@ -47,19 +41,13 @@ def go_down():
 def go_right():
     global action
     if game.direction == Direction.RIGHT:
-        # Add your code here
-        # action = ????
-        pass
+        action = [1, 0, 0]
     elif game.direction == Direction.UP:
-        # Add your code here
-        # action = ????
-        pass
+        action = [0, 1, 0]
     elif game.direction == Direction.DOWN:
-        # Add your code here
-        # action = ????
-        pass
+        action = [0, 0, 1]
     else: # must be left
-        game.game_over = True
+        action = [1, 0, 0]
     
     game.direction = Direction.RIGHT
     return action
@@ -67,19 +55,14 @@ def go_right():
 def go_left():
     global action
     if game.direction == Direction.LEFT:
-        # Add your code here
-        # action = ????
-        pass
+        action = [1, 0, 0]
     elif game.direction == Direction.DOWN:
-        # Add your code here
-        # action = ????
-        pass
+        action = [0, 1, 0]
     elif game.direction == Direction.UP:
-        # Add your code here
-        # action = ????
+        action = [0, 0, 1]
         pass
     else: # must be right
-        game.game_over = True
+        action = [1, 0, 0]
     game.direction = Direction.LEFT
     return action
 
@@ -89,6 +72,10 @@ def bindingkeys(win):
     The bindingkeys function should take the game screen as input, 
     and bind go_up, go_down, go_left and go_right to w,s,a,d accordingly. 
     '''
+    win.onkeypress(go_up, 'w')
+    win.onkeypress(go_down, 's')
+    win.onkeypress(go_left, 'a')
+    win.onkeypress(go_right, 'd')
     # Add your code here
     pass   
 

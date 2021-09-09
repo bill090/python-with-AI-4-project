@@ -70,9 +70,9 @@ class Agent:
         final_move[move] = 1
         return final_move
 
-def get_trained_model(file_name='model79.pth'):
+def get_trained_model(file_name='model.pth'):
     trained_model = None
-    model_folder_path = './model'
+    model_folder_path = './model/'
     file_name = os.path.join(model_folder_path, file_name)
     if os.path.exists(file_name):
         try:

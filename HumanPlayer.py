@@ -76,6 +76,10 @@ def bindingkeys(win):
     win.onkeypress(go_down, 's')
     win.onkeypress(go_left, 'a')
     win.onkeypress(go_right, 'd')
+    win.onkeypress(go_up, 'Up')
+    win.onkeypress(go_down, 'Down')
+    win.onkeypress(go_left, 'Left')
+    win.onkeypress(go_right, 'Right')
     # Add your code here
     pass   
 
